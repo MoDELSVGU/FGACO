@@ -1,0 +1,42 @@
+[
+	{
+		"roles": [
+			"Lecturer"
+		],
+		"actions": [
+			"read"
+		],
+		"resources": [
+			{
+				"entity": "Student",
+				"attribute": "age"
+			}
+		],
+		"auth": [
+			{
+				"ocl": "kcaller.students->includes(kself)",
+				"sql": "EXISTS (SELECT 1 FROM Enrolment WHERE lecturers = kcaller AND kself = students)"
+			}
+		]
+	},
+	{
+		"roles": [
+			"Lecturer"
+		],
+		"actions": [
+			"read"
+		],
+		"resources": [
+			{
+				"association": "Enrolment"
+			}
+		],
+		"auth": [
+			{
+				"ocl": "kstudents.lecturers->includes(kcaller)",
+				"sql": "EXISTS (SELECT 1 FROM Enrolment WHERE lecturers = kcaller AND kstudents = students)"
+			}
+		]
+	}
+] 
+
